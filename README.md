@@ -14,13 +14,13 @@ This is a basic template for a FastAPI order service, allowing users to create o
 1. Clone the repository:
 
    ```shell
-   git clone https://github.com/your-username/fastapi-order-service.git
+   git clone https://github.com/VadimS077/Simple_FastApi_Project.git 
    ```
 
 2. Navigate to the project directory:
 
    ```shell
-   cd fastapi-order-service
+   cd Simple_FastApi_Project
    ```
 
 3. Create a virtual environment (optional):
@@ -33,7 +33,9 @@ This is a basic template for a FastAPI order service, allowing users to create o
 4. Install the required dependencies:
 
    ```shell
-   pip install -r requirements.txt
+   pip install uvicorn  
+pip install fastapi  
+pip install pydantic
    ```
 
 ## Usage
