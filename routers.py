@@ -9,7 +9,7 @@ orders = {}
 
 @users_router.post("/", response_model=int)
 def create_user(user_name:str) -> int:
-    user_id = len(users)
+    user_id = len(users) + 1
     user_sign = User(id=user_id,name=user_name)
     users.append(user_sign)
     return user_id
@@ -19,15 +19,15 @@ def create_user(user_name:str) -> int:
 def get_user(user_id: int = Path(...)) -> User:
     try:
         return users[user_id]
-    except HTTPException:
+    except KeyError:
         raise HTTPException(status_code=404, detail="User not found")
 
 
 @orders_router.post("/", response_model=int)
 def create_order(user_id_: int, product_name_: str, product_count_: int) -> int:
-    if user_id_ >= len(users):
+    if user_id_ >= len(users) and user_id_>0:
         raise HTTPException(status_code=404, detail="User not found")
-    order_id = len(orders)
+    order_id = len(orders) + 1
     order_sign = Order(id=order_id, user_id=user_id_, product_name=product_name_, product_count=product_count_)
     orders[order_id] = order_sign
     return order_id
@@ -35,7 +35,7 @@ def create_order(user_id_: int, product_name_: str, product_count_: int) -> int:
 
 @orders_router.patch("/{order_id}", response_model=str)
 def cancel_order(order_id: int = Path(...)) -> str:
-    if order_id not in orders.keys():
+    if order_id not in orders:
         raise HTTPException(status_code=404, detail="Order not found")
     orders[order_id].is_cancelled = True
     return "Cancelled successfully"
@@ -43,7 +43,7 @@ def cancel_order(order_id: int = Path(...)) -> str:
 
 @orders_router.delete("/{order_id}", response_model=str)
 def delete_order(order_id: int = Path(...)) -> str:
-    if order_id not in orders.keys():
+    if order_id not in orders:
         raise HTTPException(status_code=404, detail="Order not found")
     orders.pop(order_id)
     return "Deleted successfully"
