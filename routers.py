@@ -53,8 +53,8 @@ def delete_order(order_id: int = Path(...)) -> str:
 def get_order(order_id: int = Path(...), product_name: str = Query(...), is_cancelled_: bool = Query(...)):
     sum=0
     for i in orders:
-		if orders[i].product_name == product_name_ and orders[i].is_cancelled == is_cancelled_:
-			sum+=1
-return sum
+        if orders[i].product_name == product_name_ and orders[i].is_cancelled == is_cancelled_:
+            sum+=1
+    return sum
 
 
